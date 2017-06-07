@@ -176,7 +176,7 @@ namespace Microsoft.Bot.Builder.Dialogs
             });
         }
 
-        internal static async Task SendAsync(ILifetimeScope scope, IActivity toBot, CancellationToken token = default(CancellationToken))
+        public static async Task SendAsync(ILifetimeScope scope, IActivity toBot, CancellationToken token = default(CancellationToken))
         {
             var task = scope.Resolve<IPostToBot>();
             await task.PostAsync(toBot, token);

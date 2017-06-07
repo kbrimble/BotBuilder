@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Autofac;
+using KB.InjectionBot.Dialogs;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Internals;
 using Microsoft.Bot.Builder.Internals.Fibers;
@@ -30,11 +31,10 @@ namespace KB.InjectionBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-
                 using (var scope = DialogModule.BeginLifetimeScope(this.scope, activity))
                 {
-                    var rootFactory = scope.Resolve<Func<IDialog<object>>>();
-                    await Conversation.SendAsync(activity, rootFactory);
+                    DialogModule_MakeRoot.Register(scope, () => scope.Resolve<RootDialog>());
+                    await Conversation.SendAsync(scope, activity);
                 }
             }
             else
