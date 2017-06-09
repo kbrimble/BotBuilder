@@ -33,7 +33,7 @@ namespace KB.InjectionBot
             {
                 using (var scope = DialogModule.BeginLifetimeScope(this.scope, activity))
                 {
-                    DialogModule_MakeRoot.Register(scope, () => scope.Resolve<RootDialog>());
+                    DialogModule_MakeRoot.Register(scope, () => scope.Resolve<IDialog<object>>());
                     await Conversation.SendAsync(scope, activity);
                 }
             }

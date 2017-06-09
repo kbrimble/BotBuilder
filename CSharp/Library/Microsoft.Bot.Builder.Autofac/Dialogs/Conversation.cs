@@ -100,7 +100,7 @@ namespace Microsoft.Bot.Builder.Dialogs
         /// <param name="MakeRoot">The factory method to make the root dialog.</param>
         /// <param name="token">The cancellation token.</param>
         /// <returns>A task that represents the message to send inline back to the user.</returns>
-        public static async Task SendAsync(IMessageActivity toBot, Func<IDialog<object>> MakeRoot, CancellationToken token = default(CancellationToken))
+        internal static async Task SendAsync(IMessageActivity toBot, Func<IDialog<object>> MakeRoot, CancellationToken token = default(CancellationToken))
         {
             using (var scope = DialogModule.BeginLifetimeScope(Container, toBot))
             {
